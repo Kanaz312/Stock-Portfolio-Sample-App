@@ -18,3 +18,11 @@ exports.isEmpty = (portfolio) => {
 exports.uniqueStocks = (portfolio) => {
   return Object.keys(portfolio).length;
 }
+
+exports.countShares = (ticker, portfolio) => {
+  if (portfolio.hasOwnProperty(ticker)){
+    return portfolio[ticker];
+  } else{
+    return 0;
+  }
+}

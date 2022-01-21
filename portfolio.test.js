@@ -50,5 +50,21 @@ describe('Testing Stock Portfolio', () => {
     myFunctions.addStock("RBLX", 2890, testPortfolio);
     expect(myFunctions.uniqueStocks(testPortfolio)).toBe(2);
   });
-  
+
+  test('Testing count shares - First Added', () => {
+    myFunctions.addStock("GME", 13, testPortfolio);
+    expect(myFunctions.countShares("GME", testPortfolio)).toBe(13);
+  });
+
+  test('Testing count shares - Second Added', () => {
+    myFunctions.addStock("GME", 400, testPortfolio);
+    myFunctions.addStock("RBLX", 989, testPortfolio);
+    expect(myFunctions.countShares("RBLX", testPortfolio)).toBe(989);
+  });
+
+  test('Testing count shares - Not in Portfolio', () => {
+    myFunctions.addStock("GME", 400, testPortfolio);
+    myFunctions.addStock("RBLX", 989, testPortfolio);
+    expect(myFunctions.countShares("AAPL", testPortfolio)).toBe(0);
+  });
 });
