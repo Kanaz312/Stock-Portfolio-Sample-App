@@ -57,10 +57,25 @@ describe('Testing Stock Portfolio', () => {
     expect(testPortfolio).toMatchObject({"GME" : 400});
   });
 
-  test('Testing Purchase Shares', () => {
+  test('Testing Purchase Shares - In Object', () => {
     myFunctions.addStock("RBLX", 11, testPortfolio);
     myFunctions.purchaseShares("RBLX", 19, testPortfolio);
     expect(testPortfolio).toMatchObject({"RBLX" : 30});
+  });
+
+  test('Testing Selling Shares - First Added', () => {
+    myFunctions.addStock("RBLX", 11, testPortfolio);
+    myFunctions.sellShares("RBLX", 10, testPortfolio);
+    expect(testPortfolio).toMatchObject({"RBLX" : 1});
+  });
+
+  test('Testing Selling Shares - Second Added', () => {
+    myFunctions.addStock("RBLX", 327, testPortfolio);
+    myFunctions.addStock("GME", 110, testPortfolio);
+    myFunctions.sellShares("GME", 9, testPortfolio);
+    myFunctions.sellShares("GME", 1, testPortfolio);
+    myFunctions.sellShares("RBLX", 30, testPortfolio)
+    expect(testPortfolio).toMatchObject({"RBLX" : 297, "GME" : 100});
   });
 
   test('Testing count shares - First Added', () => {

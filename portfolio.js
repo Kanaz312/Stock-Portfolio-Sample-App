@@ -34,3 +34,7 @@ exports.purchaseShares = (ticker, numShares, portfolio) => {
     portfolio[ticker] = numShares;
   }
 }
+
+exports.sellShares = (ticker, numShares, portfolio) => {
+  portfolio[ticker] = portfolio[ticker] - numShares;
+}
