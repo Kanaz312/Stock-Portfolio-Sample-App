@@ -1,3 +1,4 @@
+const exp = require('constants');
 const myFunctions = require('./portfolio.js');
 
 describe('Testing Stock Portfolio', () => {
@@ -49,6 +50,17 @@ describe('Testing Stock Portfolio', () => {
     myFunctions.addStock("GME", 400, testPortfolio);
     myFunctions.addStock("RBLX", 2890, testPortfolio);
     expect(myFunctions.uniqueStocks(testPortfolio)).toBe(2);
+  });
+
+  test('Testing Purchase Shares - Not In Object', () => {
+    myFunctions.purchaseShares("GME", 400, testPortfolio);
+    expect(testPortfolio).toMatchObject({"GME" : 400});
+  });
+
+  test('Testing Purchase Shares', () => {
+    myFunctions.addStock("RBLX", 11, testPortfolio);
+    myFunctions.purchaseShares("RBLX", 19, testPortfolio);
+    expect(testPortfolio).toMatchObject({"RBLX" : 30});
   });
 
   test('Testing count shares - First Added', () => {

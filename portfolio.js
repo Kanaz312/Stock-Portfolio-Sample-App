@@ -26,3 +26,11 @@ exports.countShares = (ticker, portfolio) => {
     return 0;
   }
 }
+
+exports.purchaseShares = (ticker, numShares, portfolio) => {
+  if (portfolio.hasOwnProperty(ticker)){
+    portfolio[ticker] = portfolio[ticker] + numShares;
+  } else {
+    portfolio[ticker] = numShares;
+  }
+}
