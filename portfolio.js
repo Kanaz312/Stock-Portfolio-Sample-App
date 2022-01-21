@@ -4,6 +4,8 @@ exports.createPortfolio= () => {
 }
 
 exports.addStock = (ticker, amount, portfolio) => {
+  if (amount == 0)
+    return;
   portfolio[ticker] = amount;
 }
 
@@ -31,10 +33,17 @@ exports.purchaseShares = (ticker, numShares, portfolio) => {
   if (portfolio.hasOwnProperty(ticker)){
     portfolio[ticker] = portfolio[ticker] + numShares;
   } else {
+    if (portfolio[ticker] == 0)
+      return;
     portfolio[ticker] = numShares;
   }
 }
 
 exports.sellShares = (ticker, numShares, portfolio) => {
-  portfolio[ticker] = portfolio[ticker] - numShares;
+  var new_value = portfolio[ticker] - numShares; 
+  if (new_value <= 0){
+    delete portfolio[ticker];
+  } else {
+    portfolio[ticker] = portfolio[ticker] - numShares;
+  }
 }

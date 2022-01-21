@@ -94,4 +94,28 @@ describe('Testing Stock Portfolio', () => {
     myFunctions.addStock("RBLX", 989, testPortfolio);
     expect(myFunctions.countShares("AAPL", testPortfolio)).toBe(0);
   });
+
+  test('Testing Prevention of Zero Shares - Second Sold', () => {
+    myFunctions.addStock("RBLX", 327, testPortfolio);
+    myFunctions.addStock("GME", 110, testPortfolio);
+    myFunctions.sellShares("GME", 9, testPortfolio);
+    myFunctions.sellShares("GME", 1, testPortfolio);
+    myFunctions.sellShares("RBLX", 327, testPortfolio);
+    expect(testPortfolio).toMatchObject({"GME" : 100});
+  });
+
+  test('Testing Prevention of Zero Shares - Multiple Selling', () => {
+    myFunctions.addStock("RBLX", 327, testPortfolio);
+    myFunctions.addStock("GME", 10, testPortfolio);
+    myFunctions.sellShares("GME", 9, testPortfolio);
+    myFunctions.sellShares("GME", 1, testPortfolio);
+    myFunctions.sellShares("RBLX", 30, testPortfolio);
+    expect(testPortfolio).toMatchObject({"RBLX" : 297});
+  });
+
+  test('Testing Prevention of Zero Shares - Purchasing 0 of New Stock', () => {
+    myFunctions.purchaseShares("RBLX", 0, testPortfolio);
+    expect(testPortfolio).toMatchObject({});
+  });
+
 });
